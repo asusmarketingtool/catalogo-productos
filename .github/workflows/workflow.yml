@@ -1,0 +1,26 @@
+name: Actualizar datos.json
+
+on:
+  schedule:
+    - cron: '0 0 * * *' # Ejecuta una vez al día a medianoche UTC
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Clonar el repositorio
+        uses: actions/checkout@v3
+
+      - name: Descargar datos desde Google Sheets
+        run: |
+          curl -o datos.json "https://script.google.com/macros/s/AKfycbyv7omw7P2L-cM8WsNFRQCZOw0ARexW38XGKY72XLckaPFgT3_PlR-De7T94g7NP_CB/exec"
+
+      - name: Commit y Push de cambios
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add datos.json
+          git commit -m "Actualizar datos.json [skip ci]" || echo "No hay cambios para commit"
+          git push
