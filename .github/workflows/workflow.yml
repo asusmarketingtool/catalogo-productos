@@ -19,6 +19,7 @@ jobs:
 
       - name: Validar datos.json
         run: |
+          sudo apt-get update
           sudo apt-get install -y jq
           jq empty datos.json
 
@@ -29,3 +30,4 @@ jobs:
           git add datos.json
           git commit -m "Actualizar datos.json [skip ci]" || echo "No hay cambios para commit"
           git push
+
