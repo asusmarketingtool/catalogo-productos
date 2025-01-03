@@ -1,4 +1,4 @@
-name: Actualizar datos.json
+name: Validar y Actualizar datos.json
 
 on:
   schedule:
@@ -15,7 +15,12 @@ jobs:
 
       - name: Descargar datos desde Google Sheets
         run: |
-          curl -o datos.json "https://script.google.com/macros/s/AKfycbyv7omw7P2L-cM8WsNFRQCZOw0ARexW38XGKY72XLckaPFgT3_PlR-De7T94g7NP_CB/exec"
+          curl -o datos.json "https://script.google.com/macros/s/AKfycbyFHz6BrnC4DKeDOYb3nW2mfoQpnSf-qaWirVPvCEreqsYQtGQg7A73IOYXMXLO6ZoL/exec"
+
+      - name: Validar datos.json
+        run: |
+          sudo apt-get install -y jq
+          jq empty datos.json
 
       - name: Commit y Push de cambios
         run: |
