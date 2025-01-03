@@ -1,0 +1,42 @@
+name: Validar y Actualizar datos.json
+
+on:
+  schedule:
+    - cron: '0 0 * * *' # Ejecuta una vez al día a medianoche UTC
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Clonar el repositorio
+        uses: actions/checkout@v3
+
+      - name: Descargar datos desde Google Sheets
+        run: |
+          curl -o datos.json "https://script.google.com/macros/s/AKfycbwRQYSChtmf5WqH-0P-O0rEodlZnuRvhnhno77hFpwKoPyX9bTgg9G5eFCcLNcFhTQ/exec"
+
+      - name: Mostrar contenido de datos.json (para depuración)
+        run: cat datos.json
+
+      - name: Validar datos.json
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y jq
+          jq empty datos.json
+
+      - name: Commit y Push de cambios
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add datos.json
+          git commit -m "Actualizar datos.json [skip ci]" || echo "No hay cambios para commit"
+          git push
+          
+- name: Descargar datos desde Google Sheets
+  run: |
+    curl -o datos.json "https://script.google.com/macros/s/AKfycbwRQYSChtmf5WqH-0P-O0rEodlZnuRvhnhno77hFpwKoPyX9bTgg9G5eFCcLNcFhTQ/exec"
+
+- name: Mostrar contenido de datos.json (para depuración)
+  run: cat datos.json
