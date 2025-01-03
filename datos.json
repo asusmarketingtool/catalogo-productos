@@ -10,7 +10,7 @@
             "Image URL": "https://ejemplo.com/imagen1.jpg",
             "Product URL": "https://tusitio.com/producto1",
             "Country": "España"
-        },
+        }, // <- Asegúrate de que no haya una coma aquí si es el último elemento
         {
             "Name": "Producto 2",
             "Short Description": "Descripción breve del producto 2",
@@ -21,7 +21,6 @@
             "Image URL": "https://ejemplo.com/imagen2.jpg",
             "Product URL": "https://tusitio.com/producto2",
             "Country": "México"
-        }
-        // Agrega más productos según sea necesario
+        } // <- No debe haber una coma después del último objeto
     ]
 }
