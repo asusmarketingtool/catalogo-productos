@@ -33,3 +33,10 @@ jobs:
           git add datos.json
           git commit -m "Actualizar datos.json [skip ci]" || echo "No hay cambios para commit"
           git push
+
+      - name: Descargar datos desde Google Sheets
+  run: |
+    curl -o datos.json "https://script.google.com/macros/s/AKfycbwRQYSChtmf5WqH-0P-O0rEodlZnuRvhnhno77hFpwKoPyX9bTgg9G5eFCcLNcFhTQ/exec"
+
+- name: Mostrar contenido de datos.json (para depuración)
+  run: cat datos.json
